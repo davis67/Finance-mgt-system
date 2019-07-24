@@ -1,6 +1,5 @@
 import express from 'express';
 
-//encrypting the password
 import bcrypt from 'bcryptjs';
 import User from './model';
 
