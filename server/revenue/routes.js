@@ -2,10 +2,10 @@ import express from 'express';
 
 import Revenue from './model';
 
-
+import authCheck from '../auth/authCheck';
 const router = express.Router();
 
-router.post('/add-revenue', async (req, res) => {
+router.post('/add-revenue', authCheck, async (req, res) => {
     const {
         amount
     } = req.body;
@@ -23,7 +23,7 @@ router.post('/add-revenue', async (req, res) => {
 
 });
 
-router.post('/edit-revenue', async (req, res) => {
+router.post('/edit-revenue', authCheck, async (req, res) => {
     Revenue.findByIdAndUpdate(req.body._id, req.body, {
         new: true
     }, (error, revenue) => {
@@ -36,7 +36,7 @@ router.post('/edit-revenue', async (req, res) => {
     });
 });
 
-router.delete('/delete-revenue/:id', (req, res) => {
+router.delete('/delete-revenue/:id', authCheck, (req, res) => {
     Revenue.findByIdAndDelete(req.params.id)
         .then(revenue => {
             if (!revenue) {
