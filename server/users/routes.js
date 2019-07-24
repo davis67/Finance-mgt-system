@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/register', async (req, res) => {
     const {
-        name,
+        username,
         email,
         password,
     } = req.body;
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
         }
 
         user = new User({
-            name,
+            username,
             email,
             password
         });
@@ -43,3 +43,5 @@ router.post('/register', async (req, res) => {
         console.error(error.message)
     }
 });
+
+export default router;
