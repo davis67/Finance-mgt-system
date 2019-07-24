@@ -8,10 +8,10 @@ const token = (req, res, next) => {
     //check if no token
     if (!token) {
         return res.status(401).json({
-            error: 'No token, authorisation denied'
+            error: 'No token, authorisation denied || Token has already expired'
         })
     }
-    //vrify token 
+    //verify token 
     try {
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
         req.user = decoded.user;
