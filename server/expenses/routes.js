@@ -1,5 +1,5 @@
 import express from 'express';
-
+import Expense from './model';
 const router = express.Router();
 
 router.post('/add-expense', async (req, res) => {
@@ -10,14 +10,23 @@ router.post('/add-expense', async (req, res) => {
         unitPrice,
         Revenue
     } = req.body;
+    const totalPrice = setTotalPrice(parseInt(quantity), parseInt(unitPrice));
 
     try {
+        // console.log(totalPrice)
 
-        const expense = new expense({
+        const expense = new Expense({
             name,
             quantity,
             unitPrice,
             Revenue,
+            totalPrice
+        })
+        // console.log(`total-price-${expense}`)\
+
+        await expense.save();
+        res.json({
+            "message": "An expense has been successfully saved"
         })
 
     } catch (error) {
@@ -29,4 +38,8 @@ router.post('/add-expense', async (req, res) => {
 
 // set the total price
 
-setTotalPrice = (quantity, unitPrice) => quantity * unitPrice;
+function setTotalPrice(quantity, unitPrice) {
+    return quantity * unitPrice;
+};
+
+export default router

@@ -1,4 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose, {
+    Schema
+} from 'mongoose';
 import Revenue from '../revenue/model';
 
 
