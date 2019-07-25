@@ -22,8 +22,6 @@ router.post('/add-expense', async (req, res) => {
             Revenue,
             totalPrice
         })
-        // console.log(`total-price-${expense}`)\
-
         await expense.save();
         res.json({
             "message": "An expense has been successfully saved"

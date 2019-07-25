@@ -4,6 +4,7 @@ import connectDB from './config/db';
 import users from './users/routes';
 import revenue from './revenue/routes';
 import expenses from './expenses/routes';
+import sales from './sales/routes';
 import auth from './auth/routes';
 const app = express();
 const PORT = '9000';
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use('/users', users);
 app.use('/revenue', revenue);
 app.use('/expenses', expenses);
+app.use('/sales', sales);
 app.use('/auth', auth);
 
 app.listen(PORT, () => console.log(`Server connected successfully on ${PORT}`))

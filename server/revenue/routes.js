@@ -1,11 +1,13 @@
 import express from 'express';
 
+//model
 import Revenue from './model';
+import Expense from '../expenses/model';
 
 import authCheck from '../auth/authCheck';
 const router = express.Router();
 
-router.post('/add-revenue', authCheck, async (req, res) => {
+router.post('/add-revenue', async (req, res) => {
     const {
         amount
     } = req.body;
@@ -59,6 +61,25 @@ router.delete('/delete-revenue/:id', authCheck, (req, res) => {
                 message: 'Could not delete revenue with id ' + req.params.id
             });
         });
-})
+});
+
+router.get('/revenue/:id', async (req, res) => {
+    let totalExpenses = 0;
+    let revenue = 0;
+    Revenue.findById(req.params.id, (error, data) => {
+        revenue = data.amount;
+    });
+    Expense.find({
+        Revenue: req.params.id
+    }, (error, data) => {
+        data.filter(expense => {
+            totalExpenses += parseInt(expense.totalPrice);
+        });
+        res.status(200).json({
+            "totalExpenses": totalExpenses,
+            "revenue": revenue
+        })
+    });
+});
 
 export default router;
