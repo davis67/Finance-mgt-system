@@ -42,7 +42,6 @@ router.get('/revenue/:id', async (req, res) => {
     Revenue.findById(req.params.id, (error, data) => {
         revenue = data.amount
     });
-    console.log(revenue)
     Sales.find({
         Revenue: req.params.id
     }, (error, data) => {
