@@ -6,9 +6,21 @@ import Expense from "../expenses/model";
 
 import authCheck from "../auth/authCheck";
 const router = express.Router();
-
+router.get("/index", async (req, res) => {
+  Revenue.find()
+    .then(revenues => {
+      res.json(revenues)
+    })
+    .catch(error => {
+      res.status(500).json({
+        error: error.message || 'Some error occured while fetching articles'
+      });
+    });
+});
 router.post("/add-revenue", async (req, res) => {
-  const { amount } = req.body;
+  const {
+    amount
+  } = req.body;
   try {
     const revenue = new Revenue({
       amount
@@ -25,8 +37,7 @@ router.post("/add-revenue", async (req, res) => {
 router.post("/edit-revenue", authCheck, async (req, res) => {
   Revenue.findByIdAndUpdate(
     req.body._id,
-    req.body,
-    {
+    req.body, {
       new: true
     },
     (error, revenue) => {
@@ -70,8 +81,7 @@ router.get("/revenue/:id", async (req, res) => {
   let revenue = 0;
   Revenue.findById(req.params.id, (error, data) => {
     revenue = data.amount;
-    Expense.find(
-      {
+    Expense.find({
         Revenue: req.params.id
       },
       (error, data) => {

@@ -7,7 +7,7 @@ import expenses from './expenses/routes';
 import sales from './sales/routes';
 import auth from './auth/routes';
 const app = express();
-const PORT = '9000';
+const PORT = '5000';
 
 
 //database connection
