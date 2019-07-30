@@ -18,7 +18,8 @@ const revenueReducer = (state = initialState, action) => {
         case CONSTANTS.ADD_REVENUE:
             return {
                 ...state,
-                revenues: [...state.revenues, action.payload]
+                loading: false,
+                    revenues: [...state.revenues, action.payload],
             };
         case CONSTANTS.GET_REVENUES:
             return {

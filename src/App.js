@@ -13,6 +13,7 @@ import AppHeader from "./components/layout/AppHeader";
 import Footer from "./components/layout/Footer";
 
 import Revenue from "./components/Revenue";
+import singleRevenue from "./components/singleRevenue";
 class App extends Component {
   render() {
     return (
@@ -23,8 +24,13 @@ class App extends Component {
             <AppSidebar />
             <main className="admin__main">
               <Switch>
-                <Route exact path="/login" component={UserLogin} />
-                <PrivateRoute exact path="/revenue/new" component={Revenue} />
+                <Route exact path="/login" component={UserLogin} />{" "}
+                <PrivateRoute exact path="/revenue/new" component={Revenue} />{" "}
+                <PrivateRoute
+                  exact
+                  path="/revenue/view-a-single-revenue/:id"
+                  component={singleRevenue}
+                />
               </Switch>
             </main>
             <Footer />

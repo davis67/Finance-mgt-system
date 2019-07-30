@@ -1,13 +1,26 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+
 import { addRevenue } from "../store/Revenue/actions";
 import { withRouter } from "react-router-dom";
 import { getRevenues } from "../store/Revenue/actions";
 
 class Revenue extends Component {
   state = {
-    amount: ""
+    amount: "",
+    revenues: [
+      {
+        amount: 70000
+      },
+      {
+        amount: 50000
+      },
+      {
+        amount: 90000
+      }
+    ]
   };
   static propTypes = {
     addRevenue: PropTypes.func.isRequired,
@@ -28,19 +41,21 @@ class Revenue extends Component {
   };
   render() {
     const { amount } = this.state;
-    const { revenues, loading } = this.state.revenue;
-    console.log(revenues);
+    const { revenues, loading } = this.props.revenues;
+    // console.log(revenues);
 
+    if (loading) return <div>loading....</div>;
     return (
       <Fragment>
         <div className="card">
           <div className="card-body">
-            <h3>Add a Revenue </h3>
+            <h3> Add a Revenue </h3>
             <form onSubmit={this.onSubmitHandler}>
               <input
                 type="number"
                 placeholder="eg 5000000"
                 name="amount"
+                value={amount}
                 className="form-control"
                 onChange={this.onChangeHandler}
               />
@@ -51,6 +66,32 @@ class Revenue extends Component {
                 value="+ ADD"
               />
             </form>
+
+            <hr />
+
+            <table className="table">
+              <thead>
+                <th>id</th>
+                <th>amount</th>
+                <th>actions</th>
+              </thead>
+              <tbody>
+                {revenues.map((revenue, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>{revenue.amount}</td>
+                    <td>
+                      <Link
+                        to={`/revenue/view-a-single-revenue/${revenue._id}`}
+                      >
+                        View
+                      </Link>
+                    </td>
+                    <td>Delete</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </Fragment>
@@ -58,7 +99,7 @@ class Revenue extends Component {
   }
 }
 const mapStateToProps = state => ({
-  revenue: state.revenue
+  revenues: state.revenue
 });
 export default connect(
   mapStateToProps,
