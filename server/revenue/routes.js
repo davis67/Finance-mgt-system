@@ -56,7 +56,7 @@ router.delete("/delete-revenue/:id", authCheck, (req, res) => {
     .then(revenue => {
       if (!revenue) {
         return res.status(404).json({
-          message: "Book not found. Please try again"
+          message: "Revenue not found. Please try again"
         });
       }
 
@@ -76,7 +76,7 @@ router.delete("/delete-revenue/:id", authCheck, (req, res) => {
     });
 });
 
-router.get("/revenue/:id", async (req, res) => {
+router.get("/view-a-single-revenue/:id", async (req, res) => {
   let totalExpenses = 0;
   let revenue = 0;
   Revenue.findById(req.params.id, (error, data) => {
@@ -89,6 +89,7 @@ router.get("/revenue/:id", async (req, res) => {
           totalExpenses += parseInt(expense.totalPrice);
         });
         res.status(200).json({
+          expenses: data,
           totalExpenses: totalExpenses,
           revenue: revenue
         });
@@ -96,5 +97,7 @@ router.get("/revenue/:id", async (req, res) => {
     );
   });
 });
+
+
 
 export default router;
