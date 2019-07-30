@@ -10,7 +10,7 @@ class singleRevenue extends Component {
   }
   render() {
     const { revenue, loading } = this.props.revenue;
-
+    if (revenue === null || loading) return <div> loading.... </div>;
     return (
       <div className="card">
         <div className="card-body">
@@ -22,7 +22,7 @@ class singleRevenue extends Component {
             </div>
             <div class="col-md-4">
               <h3 className="justify-content-center">
-                Total Expenses:{revenue.totalExpenses}
+                Total Expenses: {revenue.totalExpenses}
               </h3>
             </div>
             <div class="col-md-4 flex">
@@ -33,27 +33,21 @@ class singleRevenue extends Component {
               </h3>
             </div>
           </div>
-
-          {/* <table className="table">
+          <table className="table">
             <thead>
-              <th>id</th>
-              <th>name</th>
-              <th>Quantity</th>
-              <th>UnitPrice</th>
-              <th>Total Price</th>
+              <th> id </th> <th> name </th> <th> Quantity </th>
+              <th> UnitPrice </th> <th> Total Price </th>
             </thead>
             <tbody>
               {revenue.expenses.map((expense, index) => (
                 <tr>
-                  <td>{index + 1}</td>
-                  <td>{expense.name}</td>
-                  <td>{expense.quantity}</td>
-                  <td>{expense.unit_price}</td>
-                  <td>1000</td>
+                  <td> {index + 1} </td> <td> {expense.name} </td>
+                  <td> {expense.quantity} </td> <td> {expense.unit_price} </td>
+                  <td> 1000 </td>
                 </tr>
               ))}
             </tbody>
-          </table> */}
+          </table>
         </div>
       </div>
     );

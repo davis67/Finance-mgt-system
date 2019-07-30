@@ -59,15 +59,17 @@ export const getRevenues = () => dispatch => {
 };
 
 export const getRevenue = (id) => dispatch => {
-    // dispatch(setRevenueLoading());
+    dispatch({
+        type: CONSTANTS.GET_REVENUES_LOADING,
+    });
     axios.get(`/revenue/view-a-single-revenue/${id}`)
         .then(response =>
             dispatch({
-                type: CONSTANTS.GET_REVENUE,
+                type: CONSTANTS.GET_REVENUES_SUCCESS,
                 payload: response.data
             }))
         .catch(error => dispatch({
-            type: CONSTANTS.GET_ERRORS,
-            payload: null
+            type: CONSTANTS.GET_REVENUES_ERRORS,
+            payload: error
         }))
 }

@@ -30,12 +30,7 @@ class Revenue extends Component {
   componentDidMount() {
     this.props.getRevenues();
   }
-  // shouldComponentRender = () => {
-  //   const { loading } = this.props.revenue;
-  //   if (this.loading === false) return false;
 
-  //   return true;
-  // };
   onSubmitHandler = e => {
     e.preventDefault();
     this.props.addRevenue(this.state, this.props.history);
@@ -45,12 +40,12 @@ class Revenue extends Component {
       [e.target.name]: e.target.value
     });
   };
+
   render() {
     const { amount } = this.state;
     const { revenues, error, loading } = this.props.revenues;
-    // console.log(revenues);
 
-    if (loading) return <div> loading.... </div>;
+    if (revenues === null || loading) return <div> loading.... </div>;
     return (
       <Fragment>
         <div className="card">
@@ -81,7 +76,8 @@ class Revenue extends Component {
               <tbody>
                 {revenues.map((revenue, index) => (
                   <tr>
-                    <td> {index + 1} </td> <td> {revenue.amount} </td>
+                    <td> {index + 1} </td>
+                    <td> {revenue.amount} </td>
                     <td>
                       <Link
                         to={`/revenue/view-a-single-revenue/${revenue._id}`}
