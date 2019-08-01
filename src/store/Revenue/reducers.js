@@ -35,7 +35,7 @@ const revenueReducer = (state = initialState, action) => {
                     loading: false,
                         error: action.error
                 }
-                case CONSTANTS.GET_REVENUE:
+                case CONSTANTS.GET_REVENUE_SUCCESS:
                     return {
                         ...state,
                         revenue: action.payload,

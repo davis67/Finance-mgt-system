@@ -10,22 +10,24 @@ class singleRevenue extends Component {
   }
   render() {
     const { revenue, loading } = this.props.revenue;
+    const expenses = revenue.expenses;
+    console.log(revenue);
     if (revenue === null || loading) return <div> loading.... </div>;
     return (
       <div className="card">
         <div className="card-body">
           <div className="row">
-            <div class="col-md-4 flex">
+            <div className="col-md-4 flex">
               <h3 className="justify-content-center">
                 Revenue: {revenue.revenue}
               </h3>
             </div>
-            <div class="col-md-4">
+            <div className="col-md-4">
               <h3 className="justify-content-center">
                 Total Expenses: {revenue.totalExpenses}
               </h3>
             </div>
-            <div class="col-md-4 flex">
+            <div className="col-md-4 flex">
               <h3 className="justify-content-center">
                 <Link to="" className="btn btn-primary">
                   Add an Expense
@@ -37,15 +39,18 @@ class singleRevenue extends Component {
             <thead>
               <th> id </th> <th> name </th> <th> Quantity </th>
               <th> UnitPrice </th> <th> Total Price </th>
+              <th> Action </th>
             </thead>
             <tbody>
-              {revenue.expenses.map((expense, index) => (
-                <tr>
-                  <td> {index + 1} </td> <td> {expense.name} </td>
-                  <td> {expense.quantity} </td> <td> {expense.unit_price} </td>
-                  <td> 1000 </td>
-                </tr>
-              ))}
+              {expenses &&
+                expenses.map((expense, index) => (
+                  <tr>
+                    <td> {index + 1} </td> <td> {expense.name} </td>
+                    <td> {expense.quantity} </td> <td> {expense.unitPrice} </td>
+                    <td> {expense.quantity * expense.unitPrice}</td>
+                    <td> Edit |Delete</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

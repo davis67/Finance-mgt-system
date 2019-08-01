@@ -6,7 +6,7 @@ export const CONSTANTS = {
     GET_REVENUES_LOADING: 'GET_REVENUES_LOADING',
     GET_REVENUES_SUCCESS: 'GET_REVENUES_SUCCESS',
     GET_REVENUES_ERRORS: 'GET_REVENUES_ERRORS',
-    GET_REVENUE: 'GET_REVENUE',
+    GET_REVENUE_SUCCESS: 'GET_REVENUE_SUCCESS',
     UPDATE_REVENUE: 'UPDATE_REVENUE',
     DELETE_REVENUE: 'DELETE_REVENUE'
 
@@ -58,14 +58,14 @@ export const getRevenues = () => dispatch => {
         });
 };
 
-export const getRevenue = (id) => dispatch => {
+export const getRevenue = (id) => async dispatch => {
     dispatch({
         type: CONSTANTS.GET_REVENUES_LOADING,
     });
-    axios.get(`/revenue/view-a-single-revenue/${id}`)
+    await axios.get(`/revenue/view-a-single-revenue/${id}`)
         .then(response =>
             dispatch({
-                type: CONSTANTS.GET_REVENUES_SUCCESS,
+                type: CONSTANTS.GET_REVENUE_SUCCESS,
                 payload: response.data
             }))
         .catch(error => dispatch({

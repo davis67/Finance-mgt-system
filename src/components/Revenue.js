@@ -25,7 +25,7 @@ class Revenue extends Component {
   static propTypes = {
     addRevenue: PropTypes.func.isRequired,
     getRevenues: PropTypes.func.isRequired,
-    revenue: PropTypes.object.isRequired
+    revenues: PropTypes.object.isRequired
   };
   componentDidMount() {
     this.props.getRevenues();
@@ -74,20 +74,21 @@ class Revenue extends Component {
                 <th> id </th> <th> amount </th> <th> actions </th>
               </thead>
               <tbody>
-                {revenues.map((revenue, index) => (
-                  <tr>
-                    <td> {index + 1} </td>
-                    <td> {revenue.amount} </td>
-                    <td>
-                      <Link
-                        to={`/revenue/view-a-single-revenue/${revenue._id}`}
-                      >
-                        View
-                      </Link>
-                    </td>
-                    <td> Delete </td>
-                  </tr>
-                ))}
+                {revenues &&
+                  revenues.map((revenue, index) => (
+                    <tr>
+                      <td> {index + 1} </td>
+                      <td> {revenue.amount} </td>
+                      <td>
+                        <Link
+                          to={`/revenue/view-a-single-revenue/${revenue._id}`}
+                        >
+                          View
+                        </Link>
+                      </td>
+                      <td> Delete </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
