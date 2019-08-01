@@ -5,6 +5,7 @@ export const CONSTANTS = {
     GET_EXPENSES: 'GET_EXPENSES',
     EXPENSE_LOADING: 'EXPENSE_LOADING',
     CLEAR_ERRORS: 'CLEAR_ERRORS',
+    GET_ERRORS: 'GET_ERRORS',
 };
 
 export const setExpenseLoading = () => ({
@@ -15,14 +16,16 @@ export const clearErrors = () => ({
     type: CONSTANTS.CLEAR_ERRORS
 });
 
-export const addExpense = (expenseData, history) => dispatch => {
+export const addExpense = (expenseData, history, id) => dispatch => {
     dispatch(clearErrors());
-    axios.post("/expense/add-expense")
+    axios.post("/expenses/add-expense", expenseData)
         .then(response => {
             dispatch({
-                type: CONSTANTS.GET_EXPENSES,
+                type: CONSTANTS.ADD_EXPENSE,
                 payload: response.data
             });
+
+            history.push(`/revenue/view-a-single-revenue/${id}`);
         })
         .catch(errors => {
             dispatch({

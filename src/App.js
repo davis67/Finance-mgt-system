@@ -14,6 +14,7 @@ import Footer from "./components/layout/Footer";
 
 import Revenue from "./components/Revenue";
 import singleRevenue from "./components/singleRevenue";
+import AddExpense from "./components/AddExpense";
 class App extends Component {
   render() {
     return (

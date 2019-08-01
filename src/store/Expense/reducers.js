@@ -5,7 +5,8 @@ import {
 const initialState = {
     expenses: [],
     expense: {},
-    loading: false
+    loading: false,
+    error: {}
 };
 
 const expenseReducer = (state = initialState, action) => {
@@ -21,8 +22,14 @@ const expenseReducer = (state = initialState, action) => {
                 loading: false,
                     expenses: [...state.expenses, action.payload]
             }
-            default:
-                return state;
+            case CONSTANTS.GET_ERRORS:
+                return {
+                    ...state,
+                    loading: false,
+                        error: action.error
+                }
+                default:
+                    return state;
     }
 }
 

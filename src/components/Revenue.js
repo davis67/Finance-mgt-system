@@ -71,12 +71,12 @@ class Revenue extends Component {
             <hr />
             <table className="table">
               <thead>
-                <th> id </th> <th> amount </th> <th> actions </th>
+                <td> id </td> <td> amount </td> <td> actions </td>
               </thead>
               <tbody>
                 {revenues &&
                   revenues.map((revenue, index) => (
-                    <tr>
+                    <tr key={revenue._id}>
                       <td> {index + 1} </td>
                       <td> {revenue.amount} </td>
                       <td>

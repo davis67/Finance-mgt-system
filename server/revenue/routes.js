@@ -9,18 +9,16 @@ const router = express.Router();
 router.get("/index", async (req, res) => {
   Revenue.find()
     .then(revenues => {
-      res.json(revenues)
+      res.json(revenues);
     })
     .catch(error => {
       res.status(500).json({
-        error: error.message || 'Some error occured while fetching articles'
+        error: error.message || "Some error occured while fetching articles"
       });
     });
 });
 router.post("/add-revenue", async (req, res) => {
-  const {
-    amount
-  } = req.body;
+  const { amount } = req.body;
   try {
     const revenue = new Revenue({
       amount
@@ -37,7 +35,8 @@ router.post("/add-revenue", async (req, res) => {
 router.post("/edit-revenue", authCheck, async (req, res) => {
   Revenue.findByIdAndUpdate(
     req.body._id,
-    req.body, {
+    req.body,
+    {
       new: true
     },
     (error, revenue) => {
@@ -78,10 +77,14 @@ router.delete("/delete-revenue/:id", authCheck, (req, res) => {
 
 router.get("/view-a-single-revenue/:id", async (req, res) => {
   let totalExpenses = 0;
-  let revenue = 0;
-  Revenue.findById(req.params.id, (error, revenueData) => {
+  let revenueAmount = 0;
+  let revenueId;
 
-    Expense.find({
+  Revenue.findById(req.params.id, (error, revenueData) => {
+    revenueId = revenueData._id;
+    revenueAmount = revenueData.amount;
+    Expense.find(
+      {
         Revenue: req.params.id
       },
       (error, data) => {
@@ -91,13 +94,12 @@ router.get("/view-a-single-revenue/:id", async (req, res) => {
         res.status(200).json({
           expenses: data,
           totalExpenses: totalExpenses,
-          revenue: revenueData
+          revenueAmount: revenueAmount,
+          revenueId: revenueId
         });
       }
     );
   });
 });
-
-
 
 export default router;
