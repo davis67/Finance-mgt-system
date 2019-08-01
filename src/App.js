@@ -31,6 +31,11 @@ class App extends Component {
                   path="/revenue/view-a-single-revenue/:id"
                   component={singleRevenue}
                 />
+                <PrivateRoute
+                  exact
+                  path="/revenue/add-expense/:id"
+                  component={AddExpense}
+                />
               </Switch>
             </main>
             <Footer />

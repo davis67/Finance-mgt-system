@@ -19,7 +19,7 @@ class singleRevenue extends Component {
           <div className="row">
             <div className="col-md-4 flex">
               <h3 className="justify-content-center">
-                Revenue: {revenue.revenue}
+                Revenue: {revenue.revenue.amount}
               </h3>
             </div>
             <div className="col-md-4">
@@ -29,7 +29,10 @@ class singleRevenue extends Component {
             </div>
             <div className="col-md-4 flex">
               <h3 className="justify-content-center">
-                <Link to="" className="btn btn-primary">
+                <Link
+                  to={`/revenue/add-expense/${revenue.revenue._id}`}
+                  className="btn btn-primary"
+                >
                   Add an Expense
                 </Link>
               </h3>

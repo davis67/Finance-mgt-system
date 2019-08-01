@@ -79,8 +79,8 @@ router.delete("/delete-revenue/:id", authCheck, (req, res) => {
 router.get("/view-a-single-revenue/:id", async (req, res) => {
   let totalExpenses = 0;
   let revenue = 0;
-  Revenue.findById(req.params.id, (error, data) => {
-    revenue = data.amount;
+  Revenue.findById(req.params.id, (error, revenueData) => {
+
     Expense.find({
         Revenue: req.params.id
       },
@@ -91,7 +91,7 @@ router.get("/view-a-single-revenue/:id", async (req, res) => {
         res.status(200).json({
           expenses: data,
           totalExpenses: totalExpenses,
-          revenue: revenue
+          revenue: revenueData
         });
       }
     );
