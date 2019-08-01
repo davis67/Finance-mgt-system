@@ -50,13 +50,15 @@ class singleRevenue extends Component {
                   <tr key={expense._id}>
                     <td> {index + 1} </td> <td> {expense.name} </td>
                     <td> {expense.quantity} </td> <td> {expense.unitPrice} </td>
-                    <td> {expense.quantity * expense.unitPrice}</td>
-                    <td> Edit |Delete</td>
+                    <td> {expense.quantity * expense.unitPrice} </td>{" "}
+                    <td>
+                      <Link> Edit </Link> |<Link>Delete</Link>{" "}
+                    </td>{" "}
                   </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
+                ))}{" "}
+            </tbody>{" "}
+          </table>{" "}
+        </div>{" "}
       </div>
     );
   }

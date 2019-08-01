@@ -1,10 +1,12 @@
 import axios from 'axios';
+import constants from 'jest-haste-map/build/constants';
 
 export const CONSTANTS = {
     ADD_EXPENSE: 'ADD_EXPENSE',
     GET_EXPENSES: 'GET_EXPENSES',
     EXPENSE_LOADING: 'EXPENSE_LOADING',
     CLEAR_ERRORS: 'CLEAR_ERRORS',
+    UPDATE_EXPENSE: 'UPDATE_EXPENSE',
     GET_ERRORS: 'GET_ERRORS',
 };
 
@@ -35,8 +37,21 @@ export const addExpense = (expenseData, history, id) => dispatch => {
         });
 };
 
-// export const getExpenses = (id) => dispatch => {
-//     dispatch(setExpenseLoading());
-//     axios.get()
-//         .then(response)
-// }
+export const editExpense = (data, history, id) => dispatch => {
+    dispatch(setExpenseLoading());
+
+    //come back to me after updating the api
+    axios.post("/", data)
+        .then(response => {
+            dispatch({
+                type: constants.UPDATE_EXPENSE,
+                payload: response.data
+            })
+            history.push("/")
+        }).catch(errors => {
+            dispatch({
+                type: CONSTANTS.GET_ERRORS,
+                payload: null
+            });
+        });
+}
