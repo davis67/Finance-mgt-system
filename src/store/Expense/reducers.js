@@ -21,20 +21,27 @@ const expenseReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                     expenses: [...state.expenses, action.payload]
+            };
+        case CONSTANTS.GET_EXPENSE:
+            return {
+                ...state,
+                expense: action.payload,
+                    loading: false
             }
             case CONSTANTS.UPDATE_EXPENSE:
                 return {
                     ...state,
-                    updateExpense: action.payload.success
-                }
-                case CONSTANTS.GET_ERRORS:
-                    return {
-                        ...state,
-                        loading: false,
-                            error: action.error
-                    }
-                    default:
-                        return state;
+                    updateExpense: action.payload.success,
+                        loading: false
+                };
+            case CONSTANTS.GET_ERRORS:
+                return {
+                    ...state,
+                    loading: false,
+                        error: action.error
+                };
+            default:
+                return state;
     }
 }
 

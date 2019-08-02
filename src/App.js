@@ -15,6 +15,7 @@ import Footer from "./components/layout/Footer";
 import Revenue from "./components/Revenue";
 import singleRevenue from "./components/singleRevenue";
 import AddExpense from "./components/AddExpense";
+import EditExpense from "./components/EditExpense";
 class App extends Component {
   render() {
     return (
@@ -36,6 +37,11 @@ class App extends Component {
                   exact
                   path="/revenue/add-expense/:id"
                   component={AddExpense}
+                />
+                <PrivateRoute
+                  exact
+                  path="/expenses/edit/:id"
+                  component={EditExpense}
                 />
               </Switch>
             </main>

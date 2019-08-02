@@ -4,6 +4,7 @@ import constants from 'jest-haste-map/build/constants';
 export const CONSTANTS = {
     ADD_EXPENSE: 'ADD_EXPENSE',
     GET_EXPENSES: 'GET_EXPENSES',
+    GET_EXPENSE: 'GET_EXPENSE',
     EXPENSE_LOADING: 'EXPENSE_LOADING',
     CLEAR_ERRORS: 'CLEAR_ERRORS',
     UPDATE_EXPENSE: 'UPDATE_EXPENSE',
@@ -36,19 +37,35 @@ export const addExpense = (expenseData, history, id) => dispatch => {
             });
         });
 };
-
-export const editExpense = (data, history, id) => dispatch => {
+export const getExpense = (id) => dispatch => {
+    dispatch(setExpenseLoading());
+    axios.get(`/expenses/${id}`)
+        .then(response => {
+            dispatch({
+                type: CONSTANTS.GET_EXPENSE,
+                payload: response.data
+            })
+        })
+        .catch(errors => {
+            dispatch({
+                type: CONSTANTS.GET_ERRORS,
+                payload: null
+            });
+        })
+}
+export const editExpense = (data, history, id, revenueId) => dispatch => {
     dispatch(setExpenseLoading());
 
     //come back to me after updating the api
-    axios.post("/", data)
+    axios.put(`/expenses/edit/${id}`, data)
         .then(response => {
             dispatch({
                 type: constants.UPDATE_EXPENSE,
                 payload: response.data
-            })
-            history.push("/")
-        }).catch(errors => {
+            });
+            history.push(`/revenue/view-a-single-revenue/${revenueId}`);
+        })
+        .catch(errors => {
             dispatch({
                 type: CONSTANTS.GET_ERRORS,
                 payload: null

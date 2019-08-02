@@ -1,42 +1,55 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { addExpense } from "../store/Expense/actions";
+import { editExpense, getExpense } from "../store/Expense/actions";
 
-class AddExpense extends Component {
+class EditExpense extends Component {
   state = {
-    name: "",
-    quantity: "",
-    unitPrice: "",
-    Revenue: null
+    formData: {
+      _id: this.props.match.params.id,
+      name: "",
+      quantity: "",
+      unitPrice: "",
+      Revenue: ""
+    }
   };
-
-  static propTypes = {
-    addExpense: PropTypes.func.isRequired
-  };
-  componentDidMount() {
+  componentWillMount() {
+    this.props.getExpense(this.props.match.params.id);
+  }
+  componentWillReceiveProps(nextProps) {
+    const { expense } = nextProps.expense;
+    console.log(expense);
     this.setState({
-      Revenue: this.props.match.params.id
+      formData: {
+        _id: expense._id,
+        name: expense.name,
+        quantity: expense.quantity,
+        unitPrice: expense.unitPrice,
+        Revenue: expense.Revenue
+      }
     });
   }
-
   onSubmitHandler = e => {
     e.preventDefault();
-    this.props.addExpense(
-      this.state,
-      this.props.history,
-      this.props.match.params.id
-    );
-  };
 
-  onChangeHandler = e => {
+    /// start with me in the morning
+    // you need to add the id of the revenue here
+    this.props.editExpense(
+      this.state.formData,
+      this.props.history,
+      this.props.match.params.id,
+      this.state.formData.Revenue
+    );
+    console.log(`${this.state.formData.Revenue}`);
+  };
+  onChangeHandler = (event, name) => {
+    const newFormData = { ...this.state.formData };
+    newFormData[name] = event.target.value;
     this.setState({
-      [e.target.name]: e.target.value
+      formData: newFormData
     });
   };
   render() {
-    const { name, quantity, unitPrice } = this.state;
     return (
       <div className="card">
         <div className="row">
@@ -48,7 +61,8 @@ class AddExpense extends Component {
                   type="text"
                   onChange={this.onChangeHandler}
                   className="form-control"
-                  value={name}
+                  value={this.state.formData.name}
+                  onChange={event => this.onChangeHandler(event, "name")}
                   name="name"
                 />
               </div>
@@ -58,7 +72,8 @@ class AddExpense extends Component {
                   type="number"
                   onChange={this.onChangeHandler}
                   className="form-control"
-                  value={quantity}
+                  value={this.state.formData.quantity}
+                  onChange={event => this.onChangeHandler(event, "quantity")}
                   name="quantity"
                 />
               </div>
@@ -68,7 +83,8 @@ class AddExpense extends Component {
                   type="number"
                   onChange={this.onChangeHandler}
                   className="form-control"
-                  value={unitPrice}
+                  value={this.state.formData.unitPrice}
+                  onChange={event => this.onChangeHandler(event, "unitPrice")}
                   name="unitPrice"
                 />
               </div>
@@ -83,9 +99,9 @@ class AddExpense extends Component {
   }
 }
 
+const mapStateToProps = state => ({ expense: state.expense });
+
 export default connect(
-  null,
-  {
-    addExpense
-  }
-)(withRouter(AddExpense));
+  mapStateToProps,
+  { editExpense, getExpense }
+)(withRouter(EditExpense));
