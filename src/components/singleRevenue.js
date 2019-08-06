@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { getRevenue } from "../store/Revenue/actions";
+import { deleteExpense } from "../store/Expense/actions";
 
 class singleRevenue extends Component {
   componentDidMount() {
@@ -53,7 +54,18 @@ class singleRevenue extends Component {
                     <td> {expense.quantity * expense.unitPrice} </td>
                     <td>
                       <Link to={`/expenses/edit/${expense._id}`}> Edit </Link> |
-                      <Link>Delete</Link>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={() =>
+                          this.props.deleteExpense(
+                            expense._id,
+                            this.props.history,
+                            expense.Revenue
+                          )
+                        }
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -72,6 +84,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    getRevenue
+    getRevenue,
+    deleteExpense
   }
 )(withRouter(singleRevenue));

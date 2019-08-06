@@ -34,14 +34,19 @@ const expenseReducer = (state = initialState, action) => {
                     updateExpense: action.payload.success,
                         loading: false
                 };
-            case CONSTANTS.GET_ERRORS:
+            case CONSTANTS.DELETE_EXPENSE:
                 return {
                     ...state,
-                    loading: false,
-                        error: action.error
-                };
-            default:
-                return state;
+                    expense: state.expenses.filter(singleexpense => singleexpense._id !== action.payload)
+                }
+                case CONSTANTS.GET_ERRORS:
+                    return {
+                        ...state,
+                        loading: false,
+                            error: action.error
+                    };
+                default:
+                    return state;
     }
 }
 

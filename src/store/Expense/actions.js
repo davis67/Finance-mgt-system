@@ -8,6 +8,7 @@ export const CONSTANTS = {
     EXPENSE_LOADING: 'EXPENSE_LOADING',
     CLEAR_ERRORS: 'CLEAR_ERRORS',
     UPDATE_EXPENSE: 'UPDATE_EXPENSE',
+    DELETE_EXPENSE: 'DELETE_EXPENSE',
     GET_ERRORS: 'GET_ERRORS',
 };
 
@@ -71,4 +72,20 @@ export const editExpense = (data, history, id, revenueId) => dispatch => {
                 payload: null
             });
         });
-}
+};
+
+export const deleteExpense = (id, history, revenueId) => dispatch => {
+    axios.delete(`/expenses/delete/${id}`)
+        .then(response => {
+            dispatch({
+                type: CONSTANTS.DELETE_EXPENSE,
+                payload: id
+            });
+            history.push(`/revenue/view-a-single-revenue/${revenueId}`)
+        }).catch(errors => {
+            dispatch({
+                type: CONSTANTS.GET_ERRORS,
+                payload: null
+            });
+        });
+};
