@@ -60,4 +60,50 @@ router.get('/revenue/:id', async (req, res) => {
     });
 });
 
+router.put("/edit/:id", (req, res) => {
+    Sales.findByIdAndUpdate(req.params.id, req.body, {
+            new: true
+        })
+        .then(sale => {
+            if (!sale) {
+                return res.status(404)
+                    .json({
+                        error: "Failed Updating Sale.Please check and try again!"
+                    });
+            }
+            res.json({
+                message: "Sale Updated SuccessFully"
+            });
+        })
+        .catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).json({
+                    message: 'Sale not found with id ' + req.params.id
+                });
+            }
+            return res.status(500).json({
+                message: 'Error updating note with id ' + req.params.id
+            });
+        });
+});
+
+router.delete('/delete/:id', (req, res) => {
+    Sales.findByIdAndDelete(req.params.id)
+        .then(sale => {
+            res.json({
+                message: "Expense deleted successfully"
+            });
+        })
+        .catch(err => {
+            if (err.kind === 'ObjectId' || err.name === 'NotFound') {
+                return res.status(404).send({
+                    message: 'Sale not found with id ' + req.params.id
+                });
+            }
+            return res.status(500).send({
+                message: 'Could not delete Sale with id ' + req.params.id
+            });
+        });
+});
+
 export default router;

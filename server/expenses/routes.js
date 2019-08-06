@@ -100,7 +100,7 @@ router.delete('/delete/:id', (req, res) => {
                 });
             }
             return res.status(500).send({
-                message: 'Could not delete book with id ' + req.params.id
+                message: 'Could not delete Expense with id ' + req.params.id
             });
         });
 });
