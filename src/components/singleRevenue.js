@@ -18,9 +18,9 @@ class singleRevenue extends Component {
       <div className="card">
         <div className="card-body">
           <div className="row">
-            <div className="col-md-3 flex">
+            <div className="col-md-3 d-flex">
               <h3 className="justify-content-center">
-                Revenue: {revenue.revenueAmount}
+                Revenue: {revenue.revenueAmount}{" "}
               </h3>
             </div>
             <div className="col-md-4">

@@ -18,7 +18,9 @@ router.get("/index", async (req, res) => {
     });
 });
 router.post("/add-revenue", async (req, res) => {
-  const { amount } = req.body;
+  const {
+    amount
+  } = req.body;
   try {
     const revenue = new Revenue({
       amount
@@ -35,8 +37,7 @@ router.post("/add-revenue", async (req, res) => {
 router.post("/edit-revenue", authCheck, async (req, res) => {
   Revenue.findByIdAndUpdate(
     req.body._id,
-    req.body,
-    {
+    req.body, {
       new: true
     },
     (error, revenue) => {
@@ -75,7 +76,7 @@ router.delete("/delete-revenue/:id", authCheck, (req, res) => {
     });
 });
 
-router.get("/view-a-single-revenue/:id", async (req, res) => {
+router.get("/view-a-single-revenue/:id", (req, res) => {
   let totalExpenses = 0;
   let revenueAmount = 0;
   let revenueId;
@@ -83,8 +84,7 @@ router.get("/view-a-single-revenue/:id", async (req, res) => {
   Revenue.findById(req.params.id, (error, revenueData) => {
     revenueId = revenueData._id;
     revenueAmount = revenueData.amount;
-    Expense.find(
-      {
+    Expense.find({
         Revenue: req.params.id
       },
       (error, data) => {
@@ -97,8 +97,7 @@ router.get("/view-a-single-revenue/:id", async (req, res) => {
           revenueAmount: revenueAmount,
           revenueId: revenueId
         });
-      }
-    );
+      });
   });
 });
 

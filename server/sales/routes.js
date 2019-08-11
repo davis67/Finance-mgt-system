@@ -36,10 +36,12 @@ router.post('/add-sales', async (req, res) => {
     }
 });
 
-router.get('/revenue/:id', async (req, res) => {
+router.get('/revenue/:id', (req, res) => {
     let totalSales = 0;
     let revenue = 0;
+    let revenueId;
     Revenue.findById(req.params.id, (error, data) => {
+        revenueId = data._id;
         revenue = data.amount
         Sales.find({
             Revenue: req.params.id
@@ -52,10 +54,11 @@ router.get('/revenue/:id', async (req, res) => {
             sales_data.filter(data => {
                 totalSales += parseInt(data.amount);
             })
-            res.json({
-                "sales": sales_data,
-                "totalSales": totalSales,
-                "revenue": revenue
+            res.status(200).json({
+                data: sales_data,
+                totalSales: totalSales,
+                revenue: revenue,
+                revenueId: revenueId
             });
         });
     });

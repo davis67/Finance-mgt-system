@@ -20,11 +20,11 @@ export const clearErrors = () => ({
 
 
 //get sales
-export const getSales = (id) => async dispatch => {
+export const getSales = (id) => dispatch => {
     dispatch({
-        type: CONSTANTS.GET_SALES,
+        type: CONSTANTS.SALE_LOADING,
     });
-    await axios.get(`/sales/revenue/${id}`)
+    axios.get(`/sales/revenue/${id}`)
         .then(response =>
             dispatch({
                 type: CONSTANTS.GET_SALES,
