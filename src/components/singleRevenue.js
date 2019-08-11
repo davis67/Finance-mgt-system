@@ -18,7 +18,7 @@ class singleRevenue extends Component {
       <div className="card">
         <div className="card-body">
           <div className="row">
-            <div className="col-md-4 flex">
+            <div className="col-md-3 flex">
               <h3 className="justify-content-center">
                 Revenue: {revenue.revenueAmount}
               </h3>
@@ -28,13 +28,23 @@ class singleRevenue extends Component {
                 Total Expenses: {revenue.totalExpenses}
               </h3>
             </div>
-            <div className="col-md-4 flex">
+            <div className="col-md-3 flex">
               <h3 className="justify-content-center">
                 <Link
                   to={`/revenue/add-expense/${revenue.revenueId}`}
-                  className="btn btn-primary"
+                  className="btn btn-sm btn-primary"
                 >
                   Add an Expense
+                </Link>
+              </h3>
+            </div>
+            <div className="col-md-2 flex">
+              <h3 className="justify-content-center">
+                <Link
+                  to={`/revenue/add-expense/${revenue.revenueId}`}
+                  className="btn btn-sm btn-success"
+                >
+                  Add a Sale
                 </Link>
               </h3>
             </div>
