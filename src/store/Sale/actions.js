@@ -39,7 +39,7 @@ export const getSales = (id) => dispatch => {
 
 export const addSale = (saleData, history, id) => dispatch => {
     dispatch(clearErrors());
-    axios.post("/sales/add-sale", saleData)
+    axios.post("/sales/add-sales", saleData)
         .then(response => {
             dispatch({
                 type: CONSTANTS.ADD_SALE,

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { getSales } from "../store/Sale/actions";
+import AddSales from "./AddSales";
 
 class allSales extends Component {
   componentDidMount() {
@@ -15,7 +16,6 @@ class allSales extends Component {
     return (
       <div className="card">
         <div className="card-body">
-          {/* {sales && ( */}
           <div className="row">
             <div className="col-md-4 d-flex">
               <h3 className="justify-content-center">
@@ -28,23 +28,27 @@ class allSales extends Component {
               </h3>
             </div>
             <div className="col-md-4 d-flex">
-              <h3 className="justify-content-center">Add Sales</h3>
+              <h3 className="justify-content-center">
+                <Link
+                  to={`/sales/add-sales/${sales.revenueId}`}
+                  className="btn btn-success"
+                >
+                  Add Sales
+                </Link>
+              </h3>
             </div>
             <div className="col-md-12">
               <table className="table">
                 <thead>
                   <td> id </td> <td> name </td>
-                  <td> Total Price </td>
-                  <td> Action </td>
+                  <td> Total Price </td> <td> Action </td>
                 </thead>
                 <tbody>
                   {finalsales &&
                     finalsales.map((sale, index) => (
                       <tr key={index}>
-                        <td>{index}</td>
-                        <td>{sale.name}</td>
-                        <td>{sale.amount}</td>
-                        <td>{sale.date_of_sales}</td>
+                        <td> {index} </td> <td> {sale.name} </td>
+                        <td> {sale.amount} </td> <td> {sale.date_of_sales} </td>
                         <td>
                           <button className="btn btn-primary mr-2">Edit</button>
                           <button className="btn btn-danger">Delete</button>
@@ -55,7 +59,6 @@ class allSales extends Component {
               </table>
             </div>
           </div>
-          {/* )} */}
         </div>
       </div>
     );
