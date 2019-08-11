@@ -41,23 +41,25 @@ router.get('/revenue/:id', async (req, res) => {
     let revenue = 0;
     Revenue.findById(req.params.id, (error, data) => {
         revenue = data.amount
-    });
-    Sales.find({
-        Revenue: req.params.id
-    }, (error, data) => {
-        if (error) {
+        Sales.find({
+            Revenue: req.params.id
+        }, (error, sales_data) => {
+            if (error) {
+                res.json({
+                    "message": "An error has been encountered"
+                });
+            }
+            sales_data.filter(data => {
+                totalSales += parseInt(data.amount);
+            })
             res.json({
-                "message": "An error has been encountered"
+                "sales": sales_data,
+                "totalSales": totalSales,
+                "revenue": revenue
             });
-        }
-        data.filter(data => {
-            totalSales += parseInt(data.amount);
-        })
-        res.json({
-            "totalSales": totalSales,
-            "revenue": revenue
         });
     });
+
 });
 
 router.put("/edit/:id", (req, res) => {

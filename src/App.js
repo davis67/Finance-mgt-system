@@ -16,6 +16,7 @@ import Revenue from "./components/Revenue";
 import singleRevenue from "./components/singleRevenue";
 import AddExpense from "./components/AddExpense";
 import EditExpense from "./components/EditExpense";
+import allSales from "./components/allSales";
 class App extends Component {
   render() {
     return (
@@ -32,6 +33,11 @@ class App extends Component {
                   exact
                   path="/revenue/view-a-single-revenue/:id"
                   component={singleRevenue}
+                />
+                <PrivateRoute
+                  exact
+                  path="/sales/revenue/:id"
+                  component={allSales}
                 />
                 <PrivateRoute
                   exact

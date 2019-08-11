@@ -41,10 +41,10 @@ class singleRevenue extends Component {
             <div className="col-md-2 flex">
               <h3 className="justify-content-center">
                 <Link
-                  to={`/revenue/add-expense/${revenue.revenueId}`}
+                  to={`/sales/revenue/${revenue.revenueId}`}
                   className="btn btn-sm btn-success"
                 >
-                  Add a Sale
+                  view Sales
                 </Link>
               </h3>
             </div>

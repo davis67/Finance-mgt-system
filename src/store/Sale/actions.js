@@ -18,6 +18,25 @@ export const clearErrors = () => ({
     type: CONSTANTS.CLEAR_ERRORS
 });
 
+
+//get sales
+export const getSales = (id) => async dispatch => {
+    dispatch({
+        type: CONSTANTS.GET_SALES,
+    });
+    await axios.get(`/sales/revenue/${id}`)
+        .then(response =>
+            dispatch({
+                type: CONSTANTS.GET_SALES,
+                payload: response.data
+            }))
+        .catch(error => dispatch({
+            type: CONSTANTS.GET_ERRORS,
+            payload: error
+        }))
+};
+
+
 export const addSale = (saleData, history, id) => dispatch => {
     dispatch(clearErrors());
     axios.post("/sales/add-sale", saleData)
@@ -36,7 +55,7 @@ export const addSale = (saleData, history, id) => dispatch => {
         });
 };
 
-//get sales
+//get sale
 
 export const getSale = (id) => dispatch => {
     dispatch(setSalesLoading());
