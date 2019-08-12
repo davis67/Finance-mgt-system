@@ -2,25 +2,16 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
+import Pagination from "./pagination";
+import { paginate } from "../utils/paginate";
 import { addRevenue } from "../store/Revenue/actions";
 import { withRouter } from "react-router-dom";
 import { getRevenues } from "../store/Revenue/actions";
 
 class Revenue extends Component {
   state = {
-    amount: "",
-    revenues: [
-      {
-        amount: 70000
-      },
-      {
-        amount: 50000
-      },
-      {
-        amount: 90000
-      }
-    ]
+    pageSize: 5,
+    currentPage: 1
   };
   static propTypes = {
     addRevenue: PropTypes.func.isRequired,
@@ -30,7 +21,11 @@ class Revenue extends Component {
   componentDidMount() {
     this.props.getRevenues();
   }
-
+  handlePageChange = page => {
+    this.setState({
+      currentPage: page
+    });
+  };
   onSubmitHandler = e => {
     e.preventDefault();
     this.props.addRevenue(this.state, this.props.history);
@@ -42,15 +37,14 @@ class Revenue extends Component {
   };
 
   render() {
-    const { amount } = this.state;
-    const { revenues, error, loading } = this.props.revenues;
-
-    if (revenues === null || loading) return <div> loading.... </div>;
+    const { amount, currentPage, pageSize } = this.state;
+    const { revenues, error, count, loading } = this.props.revenues;
+    if (loading === true) return <div> loading.... </div>;
     return (
       <Fragment>
         <div className="card">
           <div className="card-body">
-            {error && <div className="alert alert-danger">{error}</div>}
+            {error && <div className="alert alert-danger"> {error} </div>}
             <h3> Add a Revenue </h3>
             <form onSubmit={this.onSubmitHandler}>
               <input
@@ -69,28 +63,40 @@ class Revenue extends Component {
               />
             </form>
             <hr />
+            <p>Showing {count} Revenues in the database.</p>
             <table className="table">
               <thead>
                 <td> id </td> <td> amount </td> <td> actions </td>
               </thead>
               <tbody>
                 {revenues &&
-                  revenues.map((revenue, index) => (
-                    <tr key={revenue._id}>
-                      <td> {index + 1} </td>
-                      <td> {revenue.amount} </td>
-                      <td>
-                        <Link
-                          to={`/revenue/view-a-single-revenue/${revenue._id}`}
-                        >
-                          View
-                        </Link>
-                      </td>
-                      <td> Delete </td>
-                    </tr>
-                  ))}
+                  paginate(revenues, currentPage, pageSize).map(
+                    (revenue, index) => (
+                      <tr key={revenue._id}>
+                        <td> {index + 1} </td> <td> {revenue.amount} </td>
+                        <td>
+                          <Link
+                            to={`/revenue/view-a-single-revenue/${revenue._id}`}
+                          >
+                            View
+                          </Link>
+                        </td>
+                        <td>
+                          <button className="btn btn-danger ml-3">
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  )}
               </tbody>
             </table>
+            <Pagination
+              itemsCount={count}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={this.handlePageChange}
+            />
           </div>
         </div>
       </Fragment>

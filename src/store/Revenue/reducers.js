@@ -5,6 +5,7 @@ import {
 const initialState = {
     revenues: [],
     revenue: {},
+    count: null,
     loading: false,
     error: null
 };
@@ -27,6 +28,7 @@ const revenueReducer = (state = initialState, action) => {
             return {
                 ...state,
                 revenues: action.payload,
+                    count: action.payload.length,
                     loading: false
             }
             case CONSTANTS.GET_REVENUES_ERRORS:

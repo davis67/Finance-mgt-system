@@ -1,17 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { getSales } from "../store/Sale/actions";
+import { getSales, deleteSale } from "../store/Sale/actions";
 import AddSales from "./AddSales";
-
+import Pagination from "./pagination";
+import { paginate } from "../utils/paginate";
 class allSales extends Component {
+  state = {
+    pageSize: 5,
+    currentPage: 1
+  };
+  handlePageChange = page => {
+    this.setState({
+      currentPage: page
+    });
+  };
   componentDidMount() {
     this.props.getSales(this.props.match.params.id);
   }
   render() {
     const { sales, loading } = this.props.sale;
+    const { currentPage, pageSize } = this.state;
     const finalsales = sales.data;
-    console.log(finalsales);
+
     if (sales === null || loading) return <div> loading.... </div>;
     return (
       <div className="card">
@@ -45,18 +56,45 @@ class allSales extends Component {
                 </thead>
                 <tbody>
                   {finalsales &&
-                    finalsales.map((sale, index) => (
-                      <tr key={index}>
-                        <td> {index} </td> <td> {sale.name} </td>
-                        <td> {sale.amount} </td> <td> {sale.date_of_sales} </td>
-                        <td>
-                          <button className="btn btn-primary mr-2">Edit</button>
-                          <button className="btn btn-danger">Delete</button>
-                        </td>
-                      </tr>
-                    ))}
+                    paginate(finalsales, currentPage, pageSize).map(
+                      (sale, index) => (
+                        <tr key={index}>
+                          <td> {index} </td> <td> {sale.name} </td>
+                          <td> {sale.amount} </td>{" "}
+                          <td> {sale.date_of_sales} </td>
+                          <td>
+                            <Link
+                              to={`/sales/edit/${sale._id}`}
+                              className="btn btn-primary mr-2"
+                            >
+                              Edit
+                            </Link>
+                            <button
+                              className="btn btn-danger"
+                              onClick={() =>
+                                this.props.deleteSale(
+                                  sale._id,
+                                  this.props.history,
+                                  sale.Revenue
+                                )
+                              }
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                    )}
                 </tbody>
               </table>
+              {finalsales && (
+                <Pagination
+                  itemsCount={finalsales.length}
+                  pageSize={pageSize}
+                  currentPage={currentPage}
+                  onPageChange={this.handlePageChange}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -70,6 +108,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    getSales
+    getSales,
+    deleteSale
   }
 )(withRouter(allSales));

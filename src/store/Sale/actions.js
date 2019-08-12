@@ -76,7 +76,7 @@ export const getSale = (id) => dispatch => {
 
 //edit sale
 
-export const editExpense = (data, history, id, revenueId) => dispatch => {
+export const editSale = (data, history, id, revenueId) => dispatch => {
     dispatch(setSalesLoading());
 
     axios.put(`/sales/edit/${id}`, data)

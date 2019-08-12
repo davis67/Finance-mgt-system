@@ -92,6 +92,28 @@ router.put("/edit/:id", (req, res) => {
         });
 });
 
+router.get("/:id", (req, res) => {
+    Sales.findById(req.params.id)
+        .then(sale => {
+            if (!sale) {
+                return res.status(404).json({
+                    message: 'Sale not found with id ' + req.params.id
+                });
+            }
+            res.json(sale);
+        })
+        .catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).json({
+                    message: 'Sale not found with id ' + req.params.id
+                });
+            }
+            return res.status(500).json({
+                message: 'Error retrieving sale with id ' + req.params.id
+            });
+        });
+})
+
 router.delete('/delete/:id', (req, res) => {
     Sales.findByIdAndDelete(req.params.id)
         .then(sale => {
