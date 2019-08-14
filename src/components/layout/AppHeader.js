@@ -14,7 +14,7 @@ class AppHeader extends Component {
     return (
       <nav
         className="navbar navbar-expand-lg navbar-light"
-        style={{ backgroundColor: "#e3f2fd;" }}
+        style={{ backgroundColor: "#e3f2fd" }}
       >
         <Link className="navbar-brand" to="/home">
           Finance Mgt System

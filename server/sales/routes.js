@@ -1,11 +1,12 @@
 import express from 'express';
 
 import Sales from './model';
-import Revenue from '../revenue/model';
+import RevenueModel from "../revenue/model";
 const router = express.Router();
 
 
 router.post('/add-sales', async (req, res) => {
+    let totalSales = 0;
     const {
         name,
         amount,
@@ -22,7 +23,32 @@ router.post('/add-sales', async (req, res) => {
             date_of_sales,
             Revenue
         });
+        if (sales) {
+            Sales.find({
+                    Revenue: sales.Revenue
+                },
+                (error, data) => {
+                    // console.log(data)
+                    data.filter(sale => {
+                        // console.log(expense.totalPrice)
+                        totalSales += parseInt(sale.amount);
+                    });
+                    RevenueModel.findOneAndUpdate({
+                            _id: sales.Revenue
+                        }, {
+                            $set: {
+                                totalSales: totalSales
+                            }
+                        }, {
+                            new: true
+                        },
+                        () => {
+                            console.log("success");
 
+                        })
+                }
+            );
+        }
         await sales.save();
 
         res.json({
@@ -40,7 +66,7 @@ router.get('/revenue/:id', (req, res) => {
     let totalSales = 0;
     let revenue = 0;
     let revenueId;
-    Revenue.findById(req.params.id, (error, data) => {
+    RevenueModel.findById(req.params.id, (error, data) => {
         revenueId = data._id;
         revenue = data.amount
         Sales.find({

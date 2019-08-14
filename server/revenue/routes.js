@@ -23,7 +23,9 @@ router.post("/add-revenue", async (req, res) => {
   } = req.body;
   try {
     const revenue = new Revenue({
-      amount
+      amount,
+      totalExpenses: 0,
+      totalSales: 0
     });
     await revenue.save();
     res.json({
@@ -101,4 +103,7 @@ router.get("/view-a-single-revenue/:id", (req, res) => {
   });
 });
 
+router.get('/dashboard', (res, req) => {
+  Revenue.find
+})
 export default router;

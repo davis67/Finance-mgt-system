@@ -62,8 +62,8 @@ class Revenue extends Component {
                 value="+ ADD"
               />
             </form>
-            <hr />
             <p>Showing {count} Revenues in the database.</p>
+
             <table className="table">
               <thead>
                 <td> id </td> <td> amount </td> <td> actions </td>

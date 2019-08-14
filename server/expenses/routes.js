@@ -1,9 +1,11 @@
 import express from 'express';
 import Expense from './model';
+import RevenueModel from "../revenue/model";
+
 const router = express.Router();
 
 router.post('/add-expense', async (req, res) => {
-
+    let totalExpenses = 0;
     const {
         name,
         quantity,
@@ -22,6 +24,32 @@ router.post('/add-expense', async (req, res) => {
             Revenue,
             totalPrice
         })
+        if (expense) {
+            Expense.find({
+                    Revenue: expense.Revenue
+                },
+                (error, data) => {
+                    // console.log(data)
+                    data.filter(expense => {
+                        // console.log(expense.totalPrice)
+                        totalExpenses += parseInt(expense.totalPrice);
+                    });
+                    RevenueModel.findOneAndUpdate({
+                            _id: expense.Revenue
+                        }, {
+                            $set: {
+                                totalExpenses: totalExpenses
+                            }
+                        }, {
+                            new: true
+                        },
+                        () => {
+                            console.log("success");
+
+                        })
+                }
+            );
+        }
         await expense.save();
         res.json({
             "message": "An expense has been successfully saved"
@@ -53,7 +81,7 @@ router.get("/:id", (req, res) => {
                 message: 'Error retrieving expense with id ' + req.params.id
             });
         });
-})
+});
 router.put("/edit/:id", (req, res) => {
     Expense.findByIdAndUpdate(req.params.id, req.body, {
             new: true

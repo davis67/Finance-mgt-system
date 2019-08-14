@@ -34,57 +34,57 @@ class App extends Component {
     const { isAuthenticated } = this.props.auth;
     const authLinks = (
       <div>
-        <AppHeader />
-        {/* <AppSidebar /> */}
+        <AppHeader /> {/* <AppSidebar /> */}{" "}
       </div>
     );
     return (
       <BrowserRouter>
         <Fragment>
           <div className="admin">
-            {isAuthenticated ? authLinks : null}
+            {" "}
+            {isAuthenticated ? authLinks : null}{" "}
             <main className="container mt-4">
               <Switch>
-                <Route exact path="/login" component={UserLogin} />
-                <PrivateRoute exact path="/home" component={Dashboard} />
-                <PrivateRoute exact path="/" component={Dashboard} />
-                <PrivateRoute exact path="/revenue/new" component={Revenue} />
-                <PrivateRoute exact path="/revenue/new" component={Revenue} />
+                <Route exact path="/login" component={UserLogin} />{" "}
+                <PrivateRoute exact path="/home" component={Dashboard} />{" "}
+                <PrivateRoute exact path="/" component={Dashboard} />{" "}
+                <PrivateRoute exact path="/revenue/new" component={Revenue} />{" "}
+                <PrivateRoute exact path="/revenue/new" component={Revenue} />{" "}
                 <PrivateRoute
                   exact
                   path="/revenue/view-a-single-revenue/:id"
                   component={singleRevenue}
-                />
+                />{" "}
                 <PrivateRoute
                   exact
                   path="/sales/revenue/:id"
                   component={allSales}
-                />
+                />{" "}
                 <PrivateRoute
                   exact
                   path="/sales/edit/:id"
                   component={EditSale}
-                />
+                />{" "}
                 <PrivateRoute
                   exact
                   path="/revenue/add-expense/:id"
                   component={AddExpense}
-                />
+                />{" "}
                 <PrivateRoute
                   exact
                   path="/sales/add-sales/:id"
                   component={AddSales}
-                />
+                />{" "}
                 <PrivateRoute
                   exact
                   path="/expenses/edit/:id"
                   component={EditExpense}
-                />
-              </Switch>
-            </main>
-            {/* <Footer /> */}
-          </div>
-        </Fragment>
+                />{" "}
+              </Switch>{" "}
+            </main>{" "}
+            {/* <Footer /> */}{" "}
+          </div>{" "}
+        </Fragment>{" "}
       </BrowserRouter>
     );
   }

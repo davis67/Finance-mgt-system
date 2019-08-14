@@ -6,9 +6,9 @@ import revenue from './revenue/routes';
 import expenses from './expenses/routes';
 import sales from './sales/routes';
 import auth from './auth/routes';
+
 const app = express();
 const PORT = '8000';
-
 
 //database connection
 dotenv.config();
