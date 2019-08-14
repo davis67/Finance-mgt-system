@@ -36,7 +36,7 @@ export const userLogin = logindata => async dispatch => {
     } catch (error) {
         dispatch({
             type: CONSTANTS.LOGIN_FAILED,
-            error: error.response.data.error
+            error: error
         });
     }
 }

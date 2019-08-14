@@ -182,3 +182,7 @@ img {
 .ticker__item {
   margin-right: 1rem;
 }
+
+.card-body .card-login {
+  background-color: #fff;
+}

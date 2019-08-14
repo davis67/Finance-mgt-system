@@ -4,8 +4,8 @@ class Footer extends Component {
   state = {};
   render() {
     return (
-      <footer className="admin__footer">
-        <p className="ticker"> Developed by davisag67 @gmail.com </p>
+      <footer className="footer">
+        <p className="text"> Developed by davisag67 @gmail.com </p>{" "}
         <span> & copy; 2019 b26labz.inc </span>
       </footer>
     );

@@ -11,34 +11,77 @@ class AppHeader extends Component {
     this.props.logoutUser();
   };
   render() {
-    const isAuthenticated = this.props.auth;
     return (
-      <header className="admin__header">
-        <Link to="/home" className="logo">
-          <h5> Finance Mgt System </h5>
+      <nav
+        className="navbar navbar-expand-lg navbar-light"
+        style={{ backgroundColor: "#e3f2fd;" }}
+      >
+        <Link className="navbar-brand" to="/home">
+          Finance Mgt System
         </Link>
-        <div className="toolbar">
-          <Link to="/revenue/new" className="btn btn--primary">
-            Add New Revenue
-          </Link>
-          <Link to="/login" onClick={this.onLogoutClick} className="logout">
-            Log Out
-          </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div className="container collapse navbar-collapse" id="navbarText">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item active">
+              <Link className="nav-link" to="/home">
+                Home <span className="sr-only">(current)</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/revenue/new">
+                Revenue
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/expenses">
+                Expenses
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/sales">
+                Sales
+              </Link>
+            </li>
+          </ul>
+          <span className="navbar-text">
+            <Link to="/login" onClick={this.onLogoutClick} className="logout">
+              Log Out
+            </Link>
+          </span>
         </div>
-      </header>
+      </nav>
+      // <header classNameName="admin__header">
+      //   <Link to="/home" classNameName="logo">
+      //     <h5> Finance Mgt System </h5>
+      //   </Link>
+      //   <div classNameName="toolbar">
+      //     <Link to="/revenue/new" className="btn btn--primary">
+      //       Add New Revenue
+      //     </Link>
+      //     <Link to="/login" onClick={this.onLogoutClick} className="logout">
+      //       Log Out
+      //     </Link>
+      //   </div>
+      // </header>
     );
   }
 }
 
 AppHeader.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  logoutUser: PropTypes.func.isRequired
 };
-const mapStateToProps = state => ({
-  auth: state.authReducer
-});
 export default connect(
-  mapStateToProps,
+  null,
   {
     logoutUser
   }

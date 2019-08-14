@@ -29,7 +29,7 @@ class UserLogin extends Component {
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.isAuthenticated) {
-      this.props.history.push("/");
+      this.props.history.push("/revenue/new");
     }
   };
 
@@ -37,35 +37,43 @@ class UserLogin extends Component {
     const { email, password } = this.state;
     return (
       <Fragment>
-        <div className="card">
+        <div className="card mt-4" style={{ marginTop: "190" }}>
           <div className="card-body">
-            <h1 className=" text-primary"> Login </h1>
-            <p className="lead">
-              <i className="fas fa-user" /> Sign in into Your Account
-            </p>
-            <form className="form" onSubmit={this.onSubmitHandler}>
-              <div className="form-group">
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  name="email"
-                  className="form-control"
-                  value={email}
-                  onChange={this.onChangeHandler}
-                />
+            <div className="row d-flex justify-content-center">
+              <div className="col-md-6">
+                <h1 className=" text-primary"> Login </h1>
+                <p className="lead">
+                  <i className="fas fa-user" /> Sign in into Your Account
+                </p>
+                <form className="form" onSubmit={this.onSubmitHandler}>
+                  <div className="form-group">
+                    <input
+                      type="email"
+                      placeholder="Email Address"
+                      name="email"
+                      className="form-control"
+                      value={email}
+                      onChange={this.onChangeHandler}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      className="form-control"
+                      value={password}
+                      onChange={this.onChangeHandler}
+                    />
+                  </div>
+                  <input
+                    type="submit"
+                    className="btn btn-primary"
+                    value="Login"
+                  />
+                </form>
               </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  className="form-control"
-                  value={password}
-                  onChange={this.onChangeHandler}
-                />
-              </div>
-              <input type="submit" className="btn btn-primary" value="Login" />
-            </form>
+            </div>
           </div>
         </div>
       </Fragment>

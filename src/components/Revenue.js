@@ -10,7 +10,7 @@ import { getRevenues } from "../store/Revenue/actions";
 
 class Revenue extends Component {
   state = {
-    pageSize: 5,
+    pageSize: 4,
     currentPage: 1
   };
   static propTypes = {
